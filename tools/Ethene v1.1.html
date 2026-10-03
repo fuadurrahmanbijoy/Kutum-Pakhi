@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ethene</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<style>
+*{box-sizing:border-box;margin:0;-webkit-tap-highlight-color:transparent}
+:root{--ink:#3a1428;--mut:#8b5d74;--acc:#d6336c;--acc2:#ff8fb8;--gl:rgba(255,255,255,.55);--gb:rgba(255,255,255,.8);--ln:rgba(190,60,110,.16);--bg:linear-gradient(135deg,#ffe3ee,#ffc9de 55%,#f6d3ff);--sh:0 8px 30px rgba(214,51,108,.16);--hi:rgba(255,255,255,.85);box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--ink:#ffe6f0;--mut:#d49ab4;--gl:rgba(58,20,40,.55);--gb:rgba(255,150,190,.2);--ln:rgba(255,150,190,.18);--bg:linear-gradient(135deg,#2a0f1e,#3b1229 55%,#2a1236);--hi:rgba(255,255,255,.1)}}
+:root[data-theme="dark"]{--ink:#ffe6f0;--mut:#d49ab4;--gl:rgba(58,20,40,.55);--gb:rgba(255,150,190,.2);--ln:rgba(255,150,190,.18);--bg:linear-gradient(135deg,#2a0f1e,#3b1229 55%,#2a1236);--hi:rgba(255,255,255,.1)}
+html,body{height:100%;overflow:hidden}
+body{font:14px/1.4 "Segoe UI Variable","Segoe UI",system-ui,-apple-system,sans-serif;color:var(--ink);background:var(--bg);display:flex;flex-direction:column;position:relative}
+.blob{position:fixed;border-radius:50%;filter:blur(70px);opacity:.55;pointer-events:none;animation:fl 14s ease-in-out infinite alternate}
+.b1{width:46vmax;height:46vmax;background:#ff7eb6;left:-14vmax;top:-12vmax}.b2{width:40vmax;height:40vmax;background:#c9a6ff;right:-12vmax;bottom:-12vmax;animation-delay:-6s}
+@keyframes fl{to{transform:translate(4vmax,3vmax) scale(1.08)}}
+svg.i{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.g{background:var(--gl);backdrop-filter:blur(22px) saturate(1.5);-webkit-backdrop-filter:blur(22px) saturate(1.5);border:1px solid var(--gb);border-radius:14px;box-shadow:var(--sh)}
+header{display:flex;align-items:center;gap:10px;height:52px;padding:0 14px;margin:8px 10px 0;position:relative;z-index:2}
+.logo{width:30px;height:30px;border-radius:9px;background:linear-gradient(135deg,var(--acc),var(--acc2));color:#fff;display:grid;place-items:center}.logo svg{width:18px;height:18px}
+header b{font-weight:600;font-size:15px}header .sp{flex:1}
+.chip{font-size:12px;padding:3px 10px;border-radius:99px;background:var(--hi);border:1px solid var(--ln);color:var(--mut);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:48vw}.chip.w{color:var(--acc);border-color:var(--acc)}
+.ib{width:34px;height:34px;border-radius:10px;border:1px solid var(--ln);background:var(--hi);color:var(--ink);display:grid;place-items:center;cursor:pointer;transition:transform .15s}.ib:active{transform:scale(.9)}
+main{flex:1;min-height:0;position:relative}
+.view{position:absolute;inset:0;padding:10px 10px 96px;display:flex;flex-direction:column;gap:10px;opacity:0;transform:translateY(10px) scale(.985);pointer-events:none;transition:opacity .35s ease,transform .45s cubic-bezier(.2,.8,.2,1);overflow:auto;scrollbar-width:none}
+.view::-webkit-scrollbar{display:none}.view.on{opacity:1;transform:none;pointer-events:auto}
+.wrapw{width:100%;max-width:720px;margin:0 auto;display:flex;flex-direction:column;gap:10px}
+@media(min-width:860px){.wrapw{display:grid;grid-template-columns:1fr 1fr;align-content:start;max-width:920px;gap:12px}.wide{grid-column:1/-1}}
+.drop{padding:16px;display:flex;align-items:center;gap:12px;cursor:pointer;border-style:dashed;border-color:var(--ln);transition:transform .25s,border-color .25s}
+.drop:hover,.drop.ov{transform:translateY(-2px);border-color:var(--acc)}.drop.ok{border-style:solid;border-color:var(--acc)}.drop svg{color:var(--acc);width:28px;height:28px}
+.drop small{display:block;color:var(--mut);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:60vw}
+.grp{padding:10px 12px;display:flex;flex-direction:column;gap:9px}.grp h4{font-size:12.5px;font-weight:600;display:flex;align-items:center;gap:7px}
+.row{display:flex;align-items:center;justify-content:space-between;gap:10px}.lb{display:flex;align-items:center;gap:6px;min-width:0}
+.q{width:20px;height:20px;border-radius:50%;border:1px solid var(--ln);background:var(--hi);color:var(--mut);font:600 11px inherit;cursor:pointer;display:grid;place-items:center;flex:none;transition:all .2s}.q:hover{background:var(--acc);color:#fff;border-color:var(--acc)}
+.seg{display:flex;background:var(--hi);border:1px solid var(--ln);border-radius:10px;padding:3px;gap:2px}
+.seg button{flex:1;border:0;background:none;color:var(--ink);font:inherit;font-size:12.5px;padding:6px 8px;border-radius:7px;cursor:pointer;transition:background .25s,color .25s;white-space:nowrap}
+.seg button.on{background:var(--acc);color:#fff;box-shadow:0 2px 8px rgba(214,51,108,.35)}
+.step{display:flex;align-items:center;border:1px solid var(--ln);background:var(--hi);border-radius:12px;padding:2px}
+.step button{width:32px;height:32px;border:0;background:none;color:var(--ink);font-size:18px;border-radius:9px;cursor:pointer}.step button:active{transform:scale(.9)}.step b{min-width:34px;text-align:center;font-size:16px}
+.sw{position:relative;width:42px;height:24px;flex:none}.sw input{opacity:0;position:absolute;inset:0;cursor:pointer;z-index:1}
+.sw span{position:absolute;inset:0;border-radius:99px;background:var(--ln);transition:background .25s}.sw span:after{content:"";position:absolute;left:3px;top:3px;width:18px;height:18px;border-radius:50%;background:#fff;box-shadow:0 1px 4px rgba(0,0,0,.25);transition:transform .25s cubic-bezier(.3,.7,.2,1)}
+.sw input:checked+span{background:var(--acc)}.sw input:checked+span:after{transform:translateX(18px)}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}.stat{padding:9px 11px}.stat b{display:block;font-size:21px;font-weight:600;line-height:1.1}.stat small{color:var(--mut);font-size:11.5px}
+#info{font-size:12.5px;color:var(--mut);padding:0 4px}
+.btn{display:flex;align-items:center;justify-content:center;gap:7px;height:40px;border:0;border-radius:11px;font:600 13px inherit;color:#fff;background:linear-gradient(135deg,var(--acc),var(--acc2));cursor:pointer;transition:.2s;padding:0 12px}.btn:active{transform:scale(.97)}.btn:disabled{opacity:.4;pointer-events:none}.btn.o{background:var(--hi);color:var(--acc);border:1px solid var(--ln)}
+.btns{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+select{font:inherit;color:var(--ink);background:var(--hi);border:1px solid var(--ln);border-radius:10px;padding:6px 8px;max-width:55%}
+.stage{flex:1;min-height:0;display:grid;place-items:center;perspective:1700px;width:100%;max-width:900px;margin:0 auto;position:relative}
+.card{position:relative;transform-style:preserve-3d;transition:transform .8s cubic-bezier(.3,.7,.2,1)}
+.face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;background:#fff;border-radius:3px;box-shadow:0 14px 36px rgba(140,20,70,.28)}.face canvas{width:100%;height:100%;display:block}
+.card.flip{transform:rotateY(180deg)}.card.top.flip{transform:rotateX(180deg)}.b{transform:rotateY(180deg)}.card.top .b{transform:rotateX(180deg)}.b.rot canvas{transform:rotate(180deg)}
+.tag{position:absolute;left:8px;top:8px;font-size:11px;background:rgba(214,51,108,.9);color:#fff;border-radius:99px;padding:2px 9px;z-index:2}
+.bar{display:flex;align-items:center;gap:8px;padding:8px 10px;align-self:center;width:100%;max-width:560px}.bar input{flex:1;accent-color:var(--acc);min-width:0}
+.bar button{border:0;background:var(--hi);color:var(--ink);width:38px;height:38px;border-radius:11px;display:grid;place-items:center;cursor:pointer;flex:none}.bar button.act{background:var(--acc);color:#fff}.bar button:disabled{opacity:.35;pointer-events:none}
+.empty{margin:auto;color:var(--mut);text-align:center;max-width:260px}
+.pg{height:6px;border-radius:9px;background:var(--ln);overflow:hidden}.pg i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--acc),var(--acc2));transition:width .5s cubic-bezier(.3,.7,.2,1)}
+.chips{display:flex;gap:6px;flex-wrap:wrap}.chips button{border:1px solid var(--ln);background:var(--hi);color:var(--ink);border-radius:99px;font:inherit;font-size:12px;padding:4px 11px;cursor:pointer}.chips button.on{background:var(--acc);color:#fff;border-color:var(--acc)}.chips button.dn{border-color:var(--acc);color:var(--acc)}.chips button.on.dn{color:#fff}
+.st{display:flex;gap:11px;align-items:flex-start;padding:10px 12px;cursor:pointer;transition:opacity .3s}.st p{color:var(--mut);font-size:12.5px}.st.dn{opacity:.55}.st.dn b{text-decoration:line-through}
+.ck{width:22px;height:22px;border-radius:7px;border:1.5px solid var(--acc);flex:none;display:grid;place-items:center;color:#fff;margin-top:1px;transition:background .25s}.dn .ck{background:var(--acc)}.ck svg{width:14px;height:14px;opacity:0;transition:opacity .2s}.dn .ck svg{opacity:1}
+nav{position:fixed;left:50%;bottom:calc(14px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);display:flex;gap:4px;padding:6px;border-radius:24px;z-index:5}
+nav button{display:flex;align-items:center;border:0;background:none;color:var(--mut);font:600 14px inherit;height:44px;padding:0 12px;border-radius:18px;cursor:pointer;transition:background .3s,color .3s,padding .3s}
+nav button span{max-width:0;overflow:hidden;white-space:nowrap;transition:max-width .35s cubic-bezier(.3,.7,.2,1),margin .35s}
+nav button.on{background:linear-gradient(135deg,var(--acc),var(--acc2));color:#fff;padding:0 16px}nav button.on span{max-width:90px;margin-left:8px}
+#hint{position:fixed;right:12px;top:calc(68px + env(safe-area-inset-top,0px));width:min(320px,calc(100vw - 24px));z-index:8;padding:13px 14px 16px;transform:translateX(calc(100% + 24px));opacity:0;transition:transform .5s cubic-bezier(.2,.9,.2,1),opacity .3s;pointer-events:none;overflow:hidden}
+#hint.on{transform:none;opacity:1;pointer-events:auto}#hint h3{font-size:15px;margin-bottom:6px}#hint p{font-size:12.5px;color:var(--mut);margin-bottom:6px}#hint p b{color:var(--ink)}
+#hint .x{position:absolute;right:10px;top:8px;border:0;background:none;color:var(--mut);font-size:19px;cursor:pointer}
+#hint .bar2{position:absolute;left:0;bottom:0;height:3px;width:100%;background:linear-gradient(90deg,var(--acc),var(--acc2));transform-origin:left;transform:scaleX(0)}#hint.run .bar2{animation:pb 9s linear forwards}@keyframes pb{from{transform:scaleX(1)}to{transform:scaleX(0)}}
+#toast{position:fixed;left:50%;top:70px;transform:translate(-50%,-20px);opacity:0;padding:8px 16px;border-radius:99px;z-index:9;transition:.35s;pointer-events:none;font-size:13px}#toast.on{opacity:1;transform:translate(-50%,0)}
+button:focus-visible,input:focus-visible+span{outline:2px solid var(--acc);outline-offset:2px}
+@media(prefers-reduced-motion:reduce){*{transition-duration:.01s!important;animation:none!important}}
+</style></head>
+<body>
+<div class="blob b1"></div><div class="blob b2"></div>
+<header class="g"><div class="logo"><svg class="i" viewBox="0 0 24 24"><path d="M5 4h10a3 3 0 013 3v13H8a3 3 0 01-3-3V4zM5 17a3 3 0 013-3h10"/></svg></div><b>Ethene</b><span class="chip">v1.1</span><span class="sp"></span><span class="chip" id="chip">No PDF yet</span><button class="ib" id="th" title="Theme"><svg class="i" viewBox="0 0 24 24" style="width:18px;height:18px"><path d="M20 14.5A8 8 0 019.5 4 8 8 0 1020 14.5z"/></svg></button></header>
+<main>
+<section class="view on" id="v-prep"><div class="wrapw">
+<label class="drop g wide" id="drop"><input type="file" id="file" accept="application/pdf" hidden><svg class="i" viewBox="0 0 24 24"><path d="M12 16V5M7 10l5-5 5 5M5 19h14"/></svg><div><b>Upload your book PDF</b><small id="fsub">Tap or drop a file. It never leaves your device.</small></div></label>
+<div class="stats wide" id="stats"></div><p id="info" class="wide"></p>
+<div class="grp g" id="g1"></div><div class="grp g" id="g2"></div>
+<div class="grp g wide"><h4>Download</h4>
+<div class="row"><span class="lb">Scope<button class="q" data-h="scope">?</button></span><select id="sg"></select></div>
+<div class="btns"><button class="btn" id="dF">Fronts</button><button class="btn" id="dB">Backs</button><button class="btn o" id="dX">Duplex (one PDF)</button><button class="btn o" id="dZ">All signatures (ZIP)</button></div>
+<button class="btn o" id="dT">Printer test (8 pages)</button></div>
+</div></section>
+<section class="view" id="v-prev"><div class="stage" id="stage"><div class="card" id="card"><div class="face"><canvas id="cf"></canvas></div><div class="face b" id="bk"><canvas id="cb"></canvas></div></div><div class="tag" id="ptag"></div></div>
+<div class="bar g"><button id="pv"><svg class="i" viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg></button><input type="range" id="rg" min="1" max="1" value="1"><button id="fl"><svg class="i" viewBox="0 0 24 24"><path d="M4 8h13l-3-3M20 16H7l3 3"/></svg></button><button id="nx"><svg class="i" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></button></div></section>
+<section class="view" id="v-asm"><div class="wrapw" id="asm"></div></section>
+</main>
+<aside id="hint" class="g"><button class="x" aria-label="Close">×</button><h3 id="ht"></h3><p id="hd"></p><p id="hp"></p><p id="ha"></p><div class="bar2"></div></aside>
+<div id="toast" class="g"></div>
+<nav class="g"><button data-v="prep" class="on"><svg class="i" viewBox="0 0 24 24"><path d="M4 7h10M18 7h2M4 17h2M10 17h10"/><circle cx="16" cy="7" r="2"/><circle cx="8" cy="17" r="2"/></svg><span>Prepare</span></button><button data-v="prev"><svg class="i" viewBox="0 0 24 24"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg><span>Preview</span></button><button data-v="asm"><svg class="i" viewBox="0 0 24 24"><path d="M9 11l3 3 8-8M20 12v7a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2h9"/></svg><span>Assemble</span></button></nav>
+<script>
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+try{pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js'}catch(e){}
+const S={bytes:null,doc:null,pj:null,N:0,bg:[255,255,255],name:''};
+const C={lay:'two',k:6,left:'small',edge:'side',rev:0,rot:0,mode:'color',mg:0,fold:1,tag:1};
+try{Object.assign(C,JSON.parse(localStorage.getItem('eth-c')||'{}'));const t=localStorage.getItem('eth-t');if(t)document.documentElement.dataset.theme=t}catch(e){}
+let A={k:'',d:{}};try{A=JSON.parse(localStorage.getItem('eth-a'))||A}catch(e){}
+const sv=()=>{try{localStorage.setItem('eth-c',JSON.stringify(C))}catch(e){}},svA=()=>{try{localStorage.setItem('eth-a',JSON.stringify(A))}catch(e){}};
+let view='prep',pi=0,sgSel=-1;
+function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('on');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('on'),2600)}
+/* ---- imposition (theory: front P-2i | 1+2i, back 2+2i | P-1-2i) ---- */
+const SP=()=>C.lay==='two'?4:2;
+function plan(N){const sh=Math.ceil(N/SP()),k=Math.max(1,C.k),z=[];if(!sh)return z;const f=Math.floor(sh/k),r=sh%k;for(let i=0;i<f;i++)z.push(k);if(r){if(C.left==='merge'&&f)z[f-1]+=r;else z.push(C.left==='pad'?k:r)}return z}
+function sheets(z){const o=[];let b=0;z.forEach((k,s)=>{if(C.lay==='two'){const P=4*k;for(let i=0;i<k;i++)o.push({s,i,f:[b+P-2*i-1,b+2*i],b:[b+2*i+1,b+P-2*i-2]});b+=P}else{for(let i=0;i<k;i++)o.push({s,i,f:[b+2*i],b:[b+2*i+1]});b+=2*k}});return o}
+function selfTest(){const sv0={...C};let ok=true;for(const lay of['two','fold'])for(const left of['small','merge','pad'])for(let k=1;k<=8;k++)for(let N=1;N<=70;N++){Object.assign(C,{lay,left,k});const seen=sheets(plan(N)).flatMap(x=>[...x.f,...x.b]).filter(n=>n<N).sort((a,b)=>a-b);if(seen.length!==N||seen.some((n,i)=>n!==i))ok=false}
+Object.assign(C,sv0);const t=sheets([1])[0];C.lay='two';const a=sheets([1])[0];Object.assign(C,sv0);return ok&&a.f.join()==='3,0'&&a.b.join()==='1,2'}
+/* ---- PDF build ---- */
+async function build(side,o={}){const {PDFDocument,rgb,degrees,StandardFonts}=PDFLib,two=C.lay==='two',W=two?841.89:595.28,H=two?595.28:841.89,hw=two?W/2:W,keep={...C};
+if(o.test)Object.assign(C,{k:2,left:'small'});
+try{const N=o.test?8:S.N,z=plan(N),all=sheets(z).filter(x=>o.only==null||x.s===o.only),bg=C.mode==='color'?rgb(...S.bg.map(v=>v/255)):rgb(1,1,1),d=await PDFDocument.create(),fnt=await d.embedFont(StandardFonts.HelveticaBold),emb=[];
+if(!o.test){const need=[...new Set(all.flatMap(x=>[...x.f,...x.b]).filter(n=>n<N))].sort((a,b)=>a-b);(await d.embedPdf(S.doc||(S.doc=await PDFDocument.load(S.bytes,{ignoreEncryption:true})),need)).forEach((e,i)=>emb[need[i]]=e)}
+let list=side==='x'?all.flatMap(s=>[[s,'f'],[s,'b']]):all.map(s=>[s,side]);if(C.rev&&side==='b')list.reverse();
+const m=C.mg*2.835,pink=rgb(.76,.09,.36),gray=rgb(.45,.45,.45),erot=!!C.rot;
+for(const[s,sd]of list){const p=d.addPage([W,H]);p.drawRectangle({x:0,y:0,width:W,height:H,color:bg});
+s[sd].forEach((n,j)=>{if(n>=N)return;const x0=j*hw;
+if(o.test){p.drawRectangle({x:x0+20,y:20,width:hw-40,height:H-40,borderWidth:2,borderColor:pink});const t=String(n+1);p.drawText(t,{x:x0+hw/2-fnt.widthOfTextAtSize(t,two?150:200)/2,y:H/2-50,size:two?150:200,font:fnt,color:pink});p.drawText((sd==='f'?'FRONT':'BACK')+'  ^ TOP',{x:x0+40,y:H-60,size:18,font:fnt,color:gray})}
+else{const e=emb[n],sc=Math.min((hw-2*m)/e.width,(H-2*m)/e.height),w=e.width*sc,h=e.height*sc;p.drawPage(e,{x:x0+(hw-w)/2,y:(H-h)/2,xScale:sc,yScale:sc})}});
+if(C.fold&&C.lay!=='flat')p.drawLine(two?{start:{x:W/2,y:0},end:{x:W/2,y:H},thickness:.4,color:gray,dashArray:[3,5]}:{start:{x:0,y:H/2},end:{x:W,y:H/2},thickness:.4,color:gray,dashArray:[3,5]});
+if(C.tag){const t=`S${s.s+1}  ${s.i+1}/${z[s.s]}  ${sd==='f'?'F':'B'}`;p.drawText(t,{x:W/2-fnt.widthOfTextAtSize(t,6)/2,y:5,size:6,font:fnt,color:gray})}
+if(sd==='b'&&erot)p.setRotation(degrees(180))}
+return await d.save()}finally{Object.assign(C,keep)}}
+async function out(nm,u8){const cl=window.claude&&await claude.use('downloads');if(cl)await cl.save({filename:nm,data:u8});else{const a=document.createElement('a');a.href=URL.createObjectURL(u8 instanceof Blob?u8:new Blob([u8],{type:'application/pdf'}));a.download=nm;a.click()}}
+const slug=()=>(S.name||'Book').replace(/\.pdf$/i,'').replace(/[^A-Za-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,40)||'Book';
+const pad=(i,n)=>String(i).padStart(Math.max(2,String(n).length),'0'),SD={f:'Front',b:'Back',x:'Duplex'};
+async function dl(side,o={}){try{toast('Building PDF…');const u8=await build(side,o),n=plan(S.N).length,nm=o.test?`Ethene_Test_${SD[side]}.pdf`:o.only!=null?`Ethene_${slug()}_Sig-${pad(o.only+1,n)}_${SD[side]}.pdf`:`Ethene_${slug()}_${SD[side]}.pdf`;await out(nm,u8);toast('Ready: '+nm)}catch(e){console.error(e);toast('Not saved')}}
+const crcT=(()=>{const t=[];for(let n=0;n<256;n++){let c=n;for(let k=0;k<8;k++)c=c&1?0xEDB88320^(c>>>1):c>>>1;t[n]=c>>>0}return t})(),crc=u=>{let c=-1;for(let i=0;i<u.length;i++)c=crcT[(c^u[i])&255]^(c>>>8);return(c^-1)>>>0};
+function zip(fs){const en=new TextEncoder(),parts=[],cen=[];let off=0;for(const f of fs){const n=en.encode(f.name),c=crc(f.data),z=f.data.length,h=new DataView(new ArrayBuffer(30));h.setUint32(0,0x04034b50,true);h.setUint16(4,20,true);h.setUint16(6,0x0800,true);h.setUint32(14,c,true);h.setUint32(18,z,true);h.setUint32(22,z,true);h.setUint16(26,n.length,true);parts.push(new Uint8Array(h.buffer),n,f.data);const d=new DataView(new ArrayBuffer(46));d.setUint32(0,0x02014b50,true);d.setUint16(4,20,true);d.setUint16(6,20,true);d.setUint16(8,0x0800,true);d.setUint32(16,c,true);d.setUint32(20,z,true);d.setUint32(24,z,true);d.setUint16(28,n.length,true);d.setUint32(42,off,true);cen.push(new Uint8Array(d.buffer),n);off+=30+n.length+z}
+const cs=cen.reduce((a,b)=>a+b.length,0),e=new DataView(new ArrayBuffer(22));e.setUint32(0,0x06054b50,true);e.setUint16(8,fs.length,true);e.setUint16(10,fs.length,true);e.setUint32(12,cs,true);e.setUint32(16,off,true);return new Blob([...parts,...cen,new Uint8Array(e.buffer)],{type:'application/zip'})}
+async function dlZip(){try{const n=plan(S.N).length,fs=[];for(let i=0;i<n;i++){toast(`Building signature ${i+1} of ${n}…`);for(const s of['f','b'])fs.push({name:`Signature-${pad(i+1,n)}_${SD[s]}.pdf`,data:await build(s,{only:i})})}const nm=`Ethene_${slug()}_Signatures.zip`;await out(nm,zip(fs));toast('Ready: '+nm)}catch(e){console.error(e);toast('Not saved')}}
+/* ---- controls + tooltips ---- */
+const G=[['g1','Sheet layout',[['Layout','lay',[['two','2-up'],['fold','1-up folded'],['flat','1-up flat']]],['Leftover sheets','left',[['small','Smaller'],['merge','Merge'],['pad','Pad']]]]],
+['g2','Printing',[['Flip pile','edge',[['side','Like a book'],['top','Calendar']]],['Back order','rev',[[0,'Same'],[1,'Reversed']]],['Colour','mode',[['color','Colour'],['bw','B/W']]]]]];
+const SW=[['rot','Back upside-down','g2'],['fold','Fold guide line','g2'],['tag','Signature tag','g2']];
+const H={
+'lay:two':'2-up|Two book pages per side, so one A4 landscape sheet holds 4 pages. The accepted method for folded signatures.|You fold sheets in half and nest them|You print one page per side',
+'lay:fold':'1-up folded|One page per A4 portrait side. Each sheet is folded in half on its own, with a dashed guide line.|You want single folded leaves|You want the standard nested signature',
+'lay:flat':'1-up flat|One page per A4 portrait side, no folding. Sheets stay flat and are stacked in order.|You bind loose sheets|You want folded signatures',
+'per':'Sheets per signature|Physical sheets nested and folded together. Each sheet adds 4 pages in 2-up (2 in 1-up).|You know how thick a stack you can fold cleanly|You plan by page count',
+'left:small':'Smaller last signature|The last signature holds only the sheets that remain.|You accept one thinner signature|Every signature must match',
+'left:merge':'Merge into previous|Remaining sheets join the previous signature, which gets thicker.|You want no thin signature|Every signature must match',
+'left:pad':'Pad to full signature|Blank pages complete the last signature.|Every signature must be identical|You want to save paper',
+'edge:side':'Flip like a book|The pile turns around the vertical edge. Left and right swap, the top stays on top. No rotation is needed.|Your printer or hands flip like a book page (default)|You turn it like a calendar',
+'edge:top':'Flip like a calendar|The pile turns over the top edge. Backs are rotated 180° so they still read upright.|You re-insert the pile top to bottom|You flip like a book',
+'rev:0':'Back order same|Flipping the whole pile brings sheet 1 back on top, so backs follow the fronts.|A test print gives matching sheets (default)|Your first back lands on the last sheet',
+'rev:1':'Back order reversed|Back sheets run from last to first.|Your printer returns the pile reversed|A test print already matches',
+'mode:color':'Colour|Samples the page background from inner pages and fills the whole sheet, margins and blanks included.|Your book has a tinted page colour|You print on plain white',
+'mode:bw':'Black and white|Plain white background everywhere.|You print on white paper to save ink|Your pages have a coloured background',
+'rot':'Back upside-down|Turns every back 180°. A safety switch for printers that behave differently.|Your test print shows upside-down backs|Backs already come out upright',
+'fold':'Fold guide line|Draws a faint dashed line at the fold.|You want help creasing in the right place|You want a clean sheet',
+'tag':'Signature tag|Prints a tiny label (like S2 3/6 F) at the bottom fold. It sits inside the fold and helps you re-sort sheets.|You may mix up sheets|You want nothing extra on the page',
+'mg':'Edge margin|Space around each page in millimetres. Near zero by default.|Your printer clips the edges|You want pages as large as possible',
+'scope':'Download scope|Build files for the whole book, or just one signature to print in batches.|You print signature by signature|You print everything at once'};
+let ht;function hint(k){const h=H[k];if(!h)return;const[t,d,p,a]=h.split('|'),e=$('#hint');$('#ht').textContent=t;$('#hd').textContent=d;$('#hp').innerHTML='<b>Pick it if</b> '+p;$('#ha').innerHTML='<b>Avoid it if</b> '+a;e.classList.remove('run');void e.offsetWidth;e.classList.add('on','run');clearTimeout(ht);ht=setTimeout(()=>e.classList.remove('on','run'),9000)}
+$('#hint .x').onclick=()=>{$('#hint').classList.remove('on','run');clearTimeout(ht)};
+const qb=k=>`<button class="q" data-h="${k}" title="Explain">?</button>`;
+G.forEach(([id,t,rows])=>{$('#'+id).innerHTML=`<h4>${t}</h4>`+rows.map(([l,k,o])=>`<div class="row"><span class="lb">${l}${qb(k+':'+o[0][0])}</span><div class="seg" data-k="${k}">${o.map(([v,n])=>`<button data-v="${v}">${n}</button>`).join('')}</div></div>`).join('')});
+$('#g1').insertAdjacentHTML('beforeend',`<div class="row"><span class="lb">Sheets per signature${qb('per')}</span><div class="step"><button data-d="-1">−</button><b id="kv"></b><button data-d="1">+</button></div></div>`);
+$('#g2').insertAdjacentHTML('beforeend',SW.map(([k,n])=>`<div class="row"><span class="lb">${n}${qb(k)}</span><label class="sw"><input type="checkbox" data-s="${k}"><span></span></label></div>`).join('')+`<div class="row"><span class="lb">Edge margin (mm)${qb('mg')}</span><div class="step"><button data-m="-.5">−</button><b id="mv"></b><button data-m=".5">+</button></div></div><div class="row"><span class="lb">Page background</span><input type="color" id="bgc" style="width:44px;height:28px;border:0;background:none;padding:0"></div>`);
+$$('.q').forEach(b=>b.onclick=e=>{e.preventDefault();e.stopPropagation();const k=b.dataset.h;hint(k.includes(':')?k.split(':')[0]+':'+C[k.split(':')[0]]:k)});
+$$('.seg').forEach(s=>s.onclick=e=>{const b=e.target.closest('button');if(!b)return;const k=s.dataset.k;C[k]=isNaN(+b.dataset.v)?b.dataset.v:+b.dataset.v;sv();hint(k+':'+C[k]);render()});
+$$('[data-s]').forEach(i=>i.onchange=()=>{C[i.dataset.s]=i.checked?1:0;sv();hint(i.dataset.s);render()});
+$$('[data-d]').forEach(b=>b.onclick=()=>{C.k=Math.max(1,Math.min(30,C.k+ +b.dataset.d));sv();hint('per');render()});
+$$('[data-m]').forEach(b=>b.onclick=()=>{C.mg=Math.max(0,Math.min(10,Math.round((C.mg+ +b.dataset.m)*2)/2));sv();hint('mg');render()});
+$('#bgc').oninput=e=>{S.bg=[1,3,5].map(i=>parseInt(e.target.value.substr(i,2),16));render()};
+const hex=c=>'#'+c.map(v=>v.toString(16).padStart(2,'0')).join('');
+/* ---- render ---- */
+function render(){const z=plan(S.N),sh=z.reduce((a,b)=>a+b,0),has=!!S.N,key=S.name+'|'+S.N+'|'+C.lay+C.k+C.left;
+if(A.k!==key){A={k:key,d:{}};svA()}
+$$('.seg').forEach(s=>s.querySelectorAll('button').forEach(b=>b.classList.toggle('on',b.dataset.v==String(C[s.dataset.k]))));
+$$('[data-s]').forEach(i=>i.checked=!!C[i.dataset.s]);$('#kv').textContent=C.k;$('#mv').textContent=C.mg;$('#bgc').value=hex(S.bg);
+$('#stats').innerHTML=[['Pages',S.N],['Sheets',sh],['Signatures',z.length],['Blank',has?sh*SP()-S.N:0]].map(x=>`<div class="stat g"><b>${x[1]}</b><small>${x[0]}</small></div>`).join('');
+$('#info').textContent=has?`${z.length} signature${z.length>1?'s':''}: ${z.slice(0,8).join(' + ')}${z.length>8?' …':''} sheets. ${SP()} pages per sheet.`:'Upload a PDF to begin.';
+const sel=$('#sg');sel.innerHTML='<option value="-1">Whole book</option>'+z.map((k,i)=>`<option value="${i}">Signature ${i+1} (${k} sheets)</option>`).join('');if(sgSel>=z.length)sgSel=-1;sel.value=sgSel;
+$$('.btn').forEach(b=>b.disabled=!has&&b.id!=='dT');
+$('#chip').textContent=has?`${S.name} · ${S.N} pp`:'No PDF yet';$('#chip').classList.toggle('w',false);
+$('#card').classList.toggle('top',C.edge==='top');$('#bk').classList.toggle('rot',!!C.rot);
+if(view==='prev')drawPrev();if(view==='asm')asm()}
+$('#sg').onchange=e=>{sgSel=+e.target.value};
+const og=()=>sgSel<0?{}:{only:sgSel};
+$('#dF').onclick=()=>dl('f',og());$('#dB').onclick=()=>dl('b',og());$('#dX').onclick=()=>dl('x',og());$('#dZ').onclick=dlZip;$('#dT').onclick=async()=>{await dl('f',{test:1});await dl('b',{test:1})};
+/* ---- load ---- */
+async function load(f){if(!f)return;$('#fsub').textContent='Reading…';
+try{const bytes=new Uint8Array(await f.arrayBuffer());S.doc=await PDFLib.PDFDocument.load(bytes,{ignoreEncryption:true});S.bytes=bytes;S.name=f.name;S.N=S.doc.getPageCount();S.pj=null;BM.clear();S.bg=[255,255,255];
+try{S.pj=await pdfjsLib.getDocument({data:bytes.slice()}).promise;const idx=[2,3,4,5,6].filter(i=>i<=S.pj.numPages);if(!idx.length)idx.push(1);const cnt={};for(const i of idx){const pg=await S.pj.getPage(i),vp=pg.getViewport({scale:.3}),cv=document.createElement('canvas');cv.width=vp.width;cv.height=vp.height;const x=cv.getContext('2d',{willReadFrequently:true});await pg.render({canvasContext:x,viewport:vp}).promise;const p=x.getImageData(3,3,1,1).data,k=[p[0],p[1],p[2]].join();cnt[k]=(cnt[k]||0)+1}S.bg=Object.entries(cnt).sort((a,b)=>b[1]-a[1])[0][0].split(',').map(Number)}catch(e){S.pj=null}
+$('#drop').classList.add('ok');$('#fsub').textContent=f.name+' · '+S.N+' pages';pi=0;sgSel=-1;render();toast(S.N+' pages loaded')}
+catch(e){console.error(e);$('#fsub').textContent='Could not read that PDF. Try another file.'}}
+const dr=$('#drop');$('#file').onchange=e=>load(e.target.files[0]);dr.ondragover=e=>{e.preventDefault();dr.classList.add('ov')};dr.ondragleave=()=>dr.classList.remove('ov');dr.ondrop=e=>{e.preventDefault();dr.classList.remove('ov');load(e.dataTransfer.files[0])};
+/* ---- preview ---- */
+const BM=new Map(),PW=340,PH=Math.round(PW*1.4142);
+async function bmp(n){if(n>=S.N||!S.pj)return null;if(BM.has(n))return BM.get(n);const pg=await S.pj.getPage(n+1),v=pg.getViewport({scale:1}),sc=Math.min(PW/v.width,PH/v.height),vp=pg.getViewport({scale:sc}),c=document.createElement('canvas');c.width=vp.width;c.height=vp.height;await pg.render({canvasContext:c.getContext('2d'),viewport:vp}).promise;BM.set(n,c);if(BM.size>24)BM.delete(BM.keys().next().value);return c}
+async function paint(cv,list){const x=cv.getContext('2d');cv.width=PW*list.length;cv.height=PH;x.fillStyle=C.mode==='color'?`rgb(${S.bg})`:'#fff';x.fillRect(0,0,cv.width,PH);
+for(let j=0;j<list.length;j++){const b=await bmp(list[j]);if(b)x.drawImage(b,j*PW+(PW-b.width)/2,(PH-b.height)/2);else if(list[j]>=S.N){x.fillStyle='rgba(190,60,110,.35)';x.font='600 40px sans-serif';x.textAlign='center';x.fillText('blank',j*PW+PW/2,PH/2)}}
+if(C.fold&&C.lay!=='flat'){x.strokeStyle='rgba(214,51,108,.5)';x.setLineDash([6,6]);x.beginPath();if(C.lay==='two'){x.moveTo(PW,0);x.lineTo(PW,PH)}else{x.moveTo(0,PH/2);x.lineTo(PW,PH/2)}x.stroke()}}
+function fit(){const s=$('#stage'),r=C.lay==='two'?2/1.4142:1/1.4142,w=s.clientWidth-16,h=s.clientHeight-16,cw=Math.max(80,Math.min(w,h*r));$('#card').style.width=cw+'px';$('#card').style.height=cw/r+'px'}
+async function drawPrev(){const L=sheets(plan(S.N)),n=L.length;$('#ptag').style.display=n?'':'none';if(!n){return}pi=Math.min(pi,n-1);const x=L[pi],z=plan(S.N),fl=$('#card').classList.contains('flip'),pp=(fl?x.b:x.f).map(v=>v>=S.N?'–':v+1).join(' | ');
+$('#ptag').textContent=`Sig ${x.s+1} · sheet ${x.i+1}/${z[x.s]} · ${fl?'Back':'Front'} · pp ${pp}`;$('#rg').max=n;$('#rg').value=pi+1;$('#pv').disabled=pi<1;$('#nx').disabled=pi>=n-1;$('#fl').classList.toggle('act',fl);fit();
+if(!S.pj){$('#ptag').textContent='Preview needs pdf.js (check your connection)';return}
+const id=pi;await Promise.all([paint($('#cf'),x.f),paint($('#cb'),x.b)])}
+const stp=d=>{pi=Math.max(0,pi+d);drawPrev()};$('#pv').onclick=()=>stp(-1);$('#nx').onclick=()=>stp(1);$('#rg').oninput=e=>{pi=+e.target.value-1;drawPrev()};$('#fl').onclick=()=>{$('#card').classList.toggle('flip');drawPrev()};
+addEventListener('resize',()=>{if(view==='prev')fit()});addEventListener('keydown',e=>{if(view!=='prev')return;if(e.key==='ArrowRight')stp(1);if(e.key==='ArrowLeft')stp(-1)});
+/* ---- assemble ---- */
+let as=0;const CK='<svg viewBox="0 0 24 24" class="i"><path d="M5 12l5 5 9-10"/></svg>';
+function asm(){const z=plan(S.N),el=$('#asm');if(!S.N){el.innerHTML='<p class="empty wide">Upload a PDF on Prepare first. Your checklist appears here.</p>';return}
+as=Math.min(as,z.length-1);const two=C.lay==='two',book=C.edge==='side',pg=C.lay==='two'?'A4 landscape':'A4 portrait';
+const G0=[['g1','Print the fronts',`Open the Fronts PDF. Use ${pg}, scale 100%, no auto-fit, one side only. Keep the printed pile in order.`],
+['g2','Print the backs',`Put the same pile back, flipped ${book?'like a book (around the vertical edge)':'like a calendar (over the top edge)'}, then print the Backs PDF.`],
+['g3','Check the first sheet',`Page 1 and page 2 must sit on opposite sides, both upright. If not, run the printer test and adjust the printing switches.`]];
+const P=[];let sh0=0,pg0=0;z.forEach((k,s)=>{const a=sh0+1,b=sh0+k;const st=[['a','Separate the sheets',`Take sheets ${a} to ${b} from the pile and keep their order.${C.tag?` Look for the S${s+1} tag at the fold.`:''}`],['b',two?'Nest the sheets':'Stack the sheets',two?`Sheet ${a} goes outermost, sheet ${b} innermost. Tap the edges even.`:`Sheet ${a} on top, in order. Tap the edges even.`]];if(C.lay!=='flat')st.push(['c','Fold in half',two?'Fold the nested stack along the centre line and press the crease with a ruler edge.':'Fold each sheet along the dashed line and press the crease.']);st.push(['d','Set it aside',`Mark this signature ${s+1} of ${z.length} lightly in pencil and place it on the finished stack.`]);P.push({s,st,a,b});sh0+=k});
+const all=[...G0.map(x=>x[0]),...P.flatMap(p=>p.st.map(t=>`${p.s}${t[0]}`))],dn=all.filter(k=>A.d[k]).length,sd=p=>p.st.every(t=>A.d[`${p.s}${t[0]}`]),ro=(k,t,d)=>`<div class="st g${A.d[k]?' dn':''}" data-k="${k}"><span class="ck">${CK}</span><div><b>${t}</b><p>${d}</p></div></div>`;
+el.innerHTML=`<div class="grp g wide"><div class="row"><b>${dn===all.length?'All signatures folded and ready':'Progress'}</b><span class="sub" style="color:var(--mut);font-size:12px">${dn} / ${all.length}</span></div><div class="pg"><i style="width:${dn/all.length*100}%"></i></div><div class="row"><span style="color:var(--mut);font-size:12px">Ends with every signature folded and separate. Binding is up to you.</span><button class="btn o" id="rs" style="height:32px">Reset</button></div></div>
+<div class="wide" style="display:flex;flex-direction:column;gap:8px">${G0.map(x=>ro(x[0],x[1],x[2])).join('')}</div>
+<div class="wide chips">${P.map(p=>`<button data-sg="${p.s}" class="${p.s===as?'on ':''}${sd(p)?'dn':''}">Signature ${p.s+1}</button>`).join('')}</div>
+<div class="wide" style="display:flex;flex-direction:column;gap:8px">${P[as].st.map(t=>ro(`${as}${t[0]}`,t[1],t[2])).join('')}</div>`;
+el.onclick=e=>{const c=e.target.closest('.st'),s=e.target.closest('[data-sg]');if(c){const k=c.dataset.k;A.d[k]=!A.d[k];svA();asm()}else if(s){as=+s.dataset.sg;asm()}else if(e.target.closest('#rs')){A.d={};svA();asm()}}}
+/* ---- nav + theme ---- */
+function go(v){view=v;$$('.view').forEach(e=>e.classList.toggle('on',e.id==='v-'+v));$$('nav button').forEach(b=>b.classList.toggle('on',b.dataset.v===v));if(v==='prev')setTimeout(drawPrev,60);if(v==='asm')asm()}
+$$('nav button').forEach(b=>b.onclick=()=>go(b.dataset.v));
+$('#th').onclick=()=>{const r=document.documentElement,d=r.dataset.theme==='dark'||(!r.dataset.theme&&matchMedia('(prefers-color-scheme:dark)').matches)?'light':'dark';r.dataset.theme=d;try{localStorage.setItem('eth-t',d)}catch(e){}};
+try{if(!selfTest()){const c=$('#chip');c.textContent='Layout self-check failed';c.classList.add('w')}}catch(e){}
+render();
+</script></body></html>
